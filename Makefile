@@ -11,7 +11,7 @@ include $(config)
 # specify tensor path
 .PHONY: clean all test doc
 
-all: lib/libtvm.a lib/libtvm.so
+all: test lib/libtvm.a lib/libtvm.so
 
 LIB_HALIDE_IR = HalideIR/lib/libHalideIR.a
 
@@ -25,7 +25,7 @@ endif
 
 export LDFLAGS = -pthread -lm
 export CFLAGS =  -std=c++11 -Wall -O2\
-	 -Iinclude -Idmlc-core/include -IHalideIR/src  -fPIC
+	 -I/usr/local/cuda/include -Iinclude -Idmlc-core/include -IHalideIR/src  -fPIC
 export FRAMEWORKS=
 
 ifneq ($(ADD_CFLAGS), NONE)
@@ -39,7 +39,8 @@ endif
 
 ifeq ($(USE_CUDA), 1)
 	CFLAGS += -DTVM_CUDA_RUNTIME=1
-	LDFLAGS += -lcuda -lcudart
+	LDFLAGS += -lcuda
+	# LDFLAGS += -lcuda -lcudart
 else
 	CFLAGS += -DTVM_CUDA_RUNTIME=0
 endif
