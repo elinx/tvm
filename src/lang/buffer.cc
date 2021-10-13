@@ -21,7 +21,7 @@ Buffer::Buffer(Array<Expr> shape,
                std::string name)
     : Buffer(BufferNode::make(
           name,
-          Var(name, Type(Type::Handle, 0, 0)),
+          Var(name, Type(Type::Handle, 0, 1)), // lane should be 1, otherwise code dump
           shape, Array<Expr>(), dtype)) {
 }
 
